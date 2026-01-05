@@ -1,2 +1,87 @@
 Please add your pseudocode to this file
 And a written explanation of your solution
+
+CONSECUTIVE SUBSTRINGS SOLUTION
+
+
+PROBLEM BREAKDOWN:
+
+Given a string, we need to generate ALL consecutive substrings. A consecutive substring means continuous characters from the original string (no gaps or skips).
+
+For example: In 'abc', valid substrings are 'a', 'ab', 'abc', 'b', 'bc', 'c'
+But 'ac' is NOT valid because it skips 'b'.
+
+SOLUTION APPROACH:
+
+The solution uses a nested loop approach:
+
+1. Outer Loop (Starting Position):
+   - Iterates through each character as a potential starting point
+   - Variable 'i' tracks the starting index (0 to string length - 1)
+
+2. Inner Loop (Ending Position):
+   - For each starting position, iterates through all possible ending positions
+   - Variable 'j' tracks the ending index (from i to string length - 1)
+
+3. Substring Extraction:
+   - For each combination of start (i) and end (j), extract the substring
+   - Use str.substring(i, j + 1) to get characters from i to j inclusive
+
+4. Store Results:
+   - Each substring is added to a result array
+   - Results naturally appear in the required order
+
+HOW IT WORKS (Example with 'abc'):
+
+i=0: Start at 'a'
+  j=0: Extract 'a' (index 0 to 0)
+  j=1: Extract 'ab' (index 0 to 1)
+  j=2: Extract 'abc' (index 0 to 2)
+
+i=1: Start at 'b'
+  j=1: Extract 'b' (index 1 to 1)
+  j=2: Extract 'bc' (index 1 to 2)
+
+i=2: Start at 'c'
+  j=2: Extract 'c' (index 2 to 2)
+
+Result: ['a', 'ab', 'abc', 'b', 'bc', 'c']
+
+TIME COMPLEXITY ANALYSIS:
+
+Time Complexity: O(n³) where n is the length of the input string
+
+Breaking it down:
+1. Outer loop runs n times (for each starting position)
+2. Inner loop runs up to n times for each iteration of outer loop
+3. substring() operation takes O(n) time to create a new string
+
+Total: n * n * n = n³
+
+Scalability Analysis:
+- If input string doubles from length 10 to 20:
+  * Operations increase from 10³ = 1,000 to 20³ = 8,000
+  * That's 8x more operations for 2x input size
+  
+- The nested loops (n²) generate all possible substrings
+- The substring extraction (n) adds another multiplicative factor
+- This makes the algorithm less efficient for very long strings
+
+SPACE COMPLEXITY:
+
+Space Complexity: O(n²)
+
+- The number of substrings generated is n(n+1)/2 which simplifies to O(n²)
+- Each substring takes O(n) space in worst case
+- Total space is dominated by the O(n²) substrings stored
+
+ALTERNATIVE APPROACHES:
+
+An O(n²) solution is possible by building strings character by character instead of using substring(), but this would still generate O(n²) substrings, so the overall space complexity remains the same.
+
+WHY THIS ALGORITHM WORKS:
+
+- Systematic: Covers all possible start-end combinations
+- Ordered: Natural left-to-right processing maintains required order
+- Complete: No consecutive substrings are missed
+- Correct: Only generates valid consecutive substrings (no gaps)
